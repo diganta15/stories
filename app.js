@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const exphbs = require('express-handlebars');
@@ -6,6 +7,7 @@ const connectDB = require('./config/db');
 const path = require('path');
 const passport = require('passport');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 
 // const routes = require('./routes/index');
 
@@ -35,7 +37,7 @@ app.use(session({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: false,
-    
+    store: MongoStore.create({mongoUrl:process.env.MONGO_URL}) 
     // cookie: { secure: true }
 }))
 
